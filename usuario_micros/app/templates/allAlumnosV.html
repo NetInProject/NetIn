@@ -1,0 +1,20 @@
+{% extends "headerAdmin.html" %}
+
+{% block content %}
+<h1>Alumnos validados</h1>
+<div id="usuarios-container">
+    {% if users %}
+        {% for user in users %}
+            <div class="usuario" id="usuario-{{ user.id }}">
+                <li>{{ user.nombre }} {{ user.ap_paterno }} {{ user.ap_materno }}</li>
+                <div>
+                    <embed src="{{ url_for('static', filename='pdf/' + user.estudiante_pdf[14:]) }}" type="application/pdf" width="50%" height="500px"></embed>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>NO HAY ALUMNOS REGISTRADOS.</p>
+    {% endif %}
+</div>
+
+{% endblock %}
