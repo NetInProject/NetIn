@@ -82,12 +82,11 @@ def login():
 @bp.route('/foros')
 @login_required
 def foros():
-    # Para obtener los foros disponibles
+    # Obtén los foros disponibles
     forum = Forum.query.all()
 
     return render_template('foros.html', forum=forum)
 
-#Ruta para crear mas foros
 @bp.route('/nuevo_foro', methods=['GET', 'POST'])
 @login_required
 def nuevo_foro():
@@ -96,7 +95,7 @@ def nuevo_foro():
         title = request.form['title']
         description = request.form['description']
         
-        # Guardar los datos en la base de datos
+        # Guardar los datos en la base de datos usando SQLAlchemy
         forum = Forum(title=title, description=description)
         db.session.add(forum)
         db.session

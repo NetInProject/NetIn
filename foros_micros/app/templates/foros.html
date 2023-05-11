@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Foros</h1>
+  <ul>
+    {% for forum in forums %}
+      <li>
+        <a href="{{ url_for('usuario_micros.foros', id=forum.id) }}">{{ forum.title }}</a>
+        <p>{{ forum.description }}</p>
+      </li>
+    {% endfor %}
+  </ul>
+  {% if current_user.tipo_usuario == 'A' %}
+    <p><a href="{{ url_for('usuario_micros.nuevo_foro') }}">Crear nuevo foro</a></p>
+  {% endif %}
+{% endblock %}

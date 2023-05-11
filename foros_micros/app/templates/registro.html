@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}Registrarse{% endblock %}
+
+{% block content %}
+  <h1>Registrarse</h1>
+  <form method="POST" action="" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+      <label for="{{ form.tipo_usuario.id }}">{{ form.tipo_usuario.label.text }}</label>
+      {{ form.tipo_usuario(class="form-control") }}
+    </div>
+    <div class="form-group">
+      <label for="{{ form.nombre.id }}">{{ form.nombre.label.text }}</label>
+      {{ form.nombre(class="form-control") }}
+    </div>
+    <div class="form-group">
+      <label for="{{ form.ap_paterno.id }}">{{ form.ap_paterno.label.text }}</label>
+      {{ form.ap_paterno(class="form-control") }}
+    </div>
+    <div class="form-group">
+      <label for="{{ form.ap_materno.id }}">{{ form.ap_materno.label.text }}</label>
+      {{ form.ap_materno(class="form-control") }}
+    </div>
+    <div class="form-group">
+      <label for="{{ form.email.id }}">{{ form.email.label.text }}</label>
+      {{ form.email(class="form-control") }}
+    </div>
+    <div class="form-group">
+      <label for="{{ form.password.id }}">{{ form.password.label.text }}</label>
+      {{ form.password(class="form-control") }}
+    </div>
+    <div class="form-group">
+      <label for="{{ form.password2.id }}">{{ form.password2.label.text }}</label>
+      {{ form.password2(class="form-control") }}
+    </div>
+    <div class="form-group">
+      <label for="{{ form.cedula_profesional.id }}">{{ form.cedula_profesional.label.text }}</label>
+      {{ form.cedula_profesional(class="form-control") }}
+    </div>
+    <div class="form-group">
+      <label for="{{ form.estudiante_pdf.id }}">{{ form.estudiante_pdf.label.text }}</label>
+      {{ form.estudiante_pdf(class="form-control-file") }}
+    </div>
+    <button type="submit" class="btn btn-primary">{{ form.submit.label.text }}</button>
+  </form>
+{% endblock %}
