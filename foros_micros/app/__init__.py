@@ -22,8 +22,8 @@ def create_app(config_class=Config):
     login_manager.init_app(app)
 
     # Importamos rutas
-    from app.routes import bp as usuario_micros
-    app.register_blueprint(usuario_micros)
+    from app.routes import bp as foros
+    app.register_blueprint(foros)
 
     # Retornamos la app
     return app
