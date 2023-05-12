@@ -10,7 +10,8 @@
       </li>
     {% endfor %}
   </ul>
-  {% if current_user.tipo_usuario == 'A' %}
+  <!--- Aqui definimos que solo los egresados puedan crear foros-->
+  {% if current_user.tipo_usuario == 'E' %}
     <p><a href="{{ url_for('usuario_micros.nuevo_foro') }}">Crear nuevo foro</a></p>
   {% endif %}
 {% endblock %}
