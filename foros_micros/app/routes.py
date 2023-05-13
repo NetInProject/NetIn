@@ -2,7 +2,8 @@
 from flask import Blueprint, render_template, flash, redirect, url_for, request, jsonify
 from flask_login import login_user, logout_user, login_required, current_user
 from app import db
-from app.models import User, Forum
+from usuario_micros.app.models import User
+from app.models import Forum
 from app.forms import formRegistro, formLogin
 import requests
 from werkzeug.utils import secure_filename
