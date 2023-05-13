@@ -24,10 +24,6 @@ def create_app(config_class=Config):
     # Importamos rutas de foros
     from app.routes import bp as foros
     app.register_blueprint(foros)
-    # Importamos rutas de usuario_micros
-    from usuario_micros.routes import bp as usuario_micros_bp
-    app.register_blueprint(usuario_micros_bp)
-
 
     # Retornamos la app
     return app
