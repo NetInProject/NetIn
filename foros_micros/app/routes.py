@@ -33,15 +33,23 @@ def foros():
 
     return render_template('foros.html', forum=forum)
 
+# Ruta para crear un nuevo foro
 @bp.route('/nuevo_foro', methods=['GET', 'POST'])
 @login_required
 def nuevo_foro():
-    if request.method == 'POST':
-        # Procesar los datos del formulario de registro de foros
-        title = request.form['title']
-        description = request.form['description']
+    form = CrearForoForm()
+
+    if form.validate_on_submit():
+        # Procesa los datos del formulario de creación de foros
+        title = form.title.data
+        description = form.description.data
         
-        # Guardar los datos en la base de datos usando SQLAlchemy
+        # Guarda los datos en la base de datos usando SQLAlchemy
         forum = Forum(title=title, description=description)
         db.session.add(forum)
-        db.session
+        db.session.commit()
+
+        flash('Tu foro creado exitosamente', 'success')
+        return redirect(url_for('foros_micros.foros'))
+
+    return render_template('nuevo_foro.html', form=form)

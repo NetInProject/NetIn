@@ -7,6 +7,14 @@ from flask import flash
 from app.models import User
 import re
 
+
+# Formulario de Crear Foros
+class CrearForoForm(FlaskForm):
+    title = StringField('Título', validators=[DataRequired()])
+    description = TextAreaField('Descripción', validators=[DataRequired()])
+    submit = SubmitField('Crear foro')
+
+
 # Formulario de Crear Post
 class CreatePostForm(FlaskForm):
     title = StringField('Título', validators=[DataRequired()])

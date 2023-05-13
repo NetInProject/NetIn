@@ -5,13 +5,13 @@
   <ul>
     {% for forum in forums %}
       <li>
-        <a href="{{ url_for('usuario_micros.foros', id=forum.id) }}">{{ forum.title }}</a>
+        <a href="{{ url_for('foros_micros.foros', id=forum.id) }}">{{ forum.title }}</a>
         <p>{{ forum.description }}</p>
       </li>
     {% endfor %}
   </ul>
   <!--- Aqui definimos que solo los egresados puedan crear foros-->
   {% if current_user.tipo_usuario == 'E' %}
-    <p><a href="{{ url_for('usuario_micros.nuevo_foro') }}">Crear nuevo foro</a></p>
+    <p><a href="{{ url_for('foros_micros.nuevo_foro') }}">Crear nuevo foro</a></p>
   {% endif %}
 {% endblock %}
