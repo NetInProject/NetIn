@@ -1,6 +1,6 @@
 # Importamos módulos
+from usuario_micros.app.models import User
 from app import db
-from usuario_micros.models import User
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
