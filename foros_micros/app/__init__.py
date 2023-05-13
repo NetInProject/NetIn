@@ -21,9 +21,13 @@ def create_app(config_class=Config):
     migrate.init_app(app, db)
     login_manager.init_app(app)
 
-    # Importamos rutas
+    # Importamos rutas de foros
     from app.routes import bp as foros
     app.register_blueprint(foros)
+    # Importamos rutas de usuario_micros
+    from usuario_micros.routes import bp as usuario_micros_bp
+    app.register_blueprint(usuario_micros_bp)
+
 
     # Retornamos la app
     return app
