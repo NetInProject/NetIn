@@ -1,0 +1,22 @@
+{% extends "headerAdmin.html" %}
+
+{% block content %}
+<h1>Alumnos pendientes a validar</h1>
+<div id="usuarios-container">
+    {% if users %}
+        {% for user in users %}
+            <div class="usuario" id="usuario-{{ user.id }}">
+                <li>{{ user.nombre }} {{ user.ap_paterno }} {{ user.ap_materno }} {{user.estudiante_pdf[14:]}}</li>
+                <div>
+                    <embed src="{{ url_for('static', filename='pdf/' + user.estudiante_pdf[14:]) }}" type="application/pdf" width="50%" height="500px"></embed>
+                </div>
+                <button class="btn-validar" data-id="{{ user.id }}">Siguiene Alumno</button>
+                <button class="btn-actualizar" data-id="{{ user.id }}">Validar Alumno</button>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No hay alumnos por validar.</p>
+    {% endif %}
+</div>
+
+{% endblock %}
