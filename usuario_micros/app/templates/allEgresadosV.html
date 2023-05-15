@@ -11,8 +11,18 @@
             </div>
         {% endfor %}
     {% else %}
-        <p>NO HAY ALUMNOS REGISTRADOS.</p>
+        <div class="alert alert-danger mensaje" role="alert">
+            No hay egresados registrados aun.
     {% endif %}
 </div>
+
+<style>
+    .alert.alert-danger.mensaje {
+        background-color: rgba(170, 150, 147, 0.35);
+        color: #ffffff; /* Cambia el color del texto */
+        box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+        border-color: transparent;
+    }
+</style>
 
 {% endblock %}

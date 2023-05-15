@@ -15,9 +15,12 @@
             </div>
         {% endfor %}
     {% else %}
-        <p>No hay alumnos por validar.</p>
+    <div class="alert alert-danger mensaje" role="alert">
+        No hay alumnos por validar.
+    </div>
     {% endif %}
 </div>
+
 <script>
     // Ocultar todos los usuarios excepto el primero
     var usuarios = document.querySelectorAll('.usuario');
@@ -74,4 +77,14 @@
             }, 500);
     }
 </script>
+
+<style>
+    .alert.alert-danger.mensaje {
+        background-color: rgba(170, 150, 147, 0.35);
+        color: #ffffff; /* Cambia el color del texto */
+        box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+        border-color: transparent;
+    }
+</style>
+
 {% endblock %}

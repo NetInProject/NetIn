@@ -1,0 +1,43 @@
+body{
+    background-image: url('/static/img/fondo4.png');
+    background-repeat: no-repeat;
+    background-size: 150%;
+    background-position: center;
+    color: #ffffff;
+  }
+ 
+  h1{
+    color: #f6f6f6;
+    text-align: center;
+  }
+  
+  .navbar-brand img {
+    height: 50px;
+    margin-right: 10px;
+  }
+  
+  .navbar-brand {
+    font-size: 2rem;
+  }
+  
+  .navbar-nav .nav-link {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  #navbar {
+    background-color: rgba(246, 246, 246, 0.8);
+  }
+  
+  /* Colores definidos */
+  :root {
+    --color-1: #523c8c;
+    --color-2: #bca4dc;
+    --color-3: #432c7d;
+    --color-4: #68549c;
+    --color-5: #aa9ecc;
+    --color-6: #c3b5d7;
+  }
+
+
+  

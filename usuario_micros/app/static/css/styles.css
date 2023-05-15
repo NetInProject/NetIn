@@ -1,7 +1,7 @@
 body{
     background-image: url('/static/img/fondo.jpg');
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: 150%;
     background-position: center;
   }
   
@@ -115,4 +115,25 @@ body{
   
   form button[type="submit"]:hover {
     background-color: var(--color-5);
+  }
+
+  form {
+    /* Resto de los estilos... */
+    position: relative; /* Agregado para posicionar los formularios */
+    left: -100%; /* Agregado para iniciar los formularios ocultos */
+    transition: left 0.3s; /* Agregado para animar el desplazamiento */
+  }
+  
+  form.show {
+    left: 0; /* Agregado para mostrar los formularios animadamente */
+  }
+  
+  /* Agregado para animar el desplazamiento de izquierda a derecha */
+  @keyframes formSlideIn {
+    from {
+      left: -100%;
+    }
+    to {
+      left: 0;
+    }
   }
