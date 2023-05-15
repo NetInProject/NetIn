@@ -1,0 +1,12 @@
+{% extends "headerAdmin.html" %}
+
+{% block content %}
+    <h1>Lista de Foros</h1>
+    <ul>
+        {% for foro in foros %}
+            <li><a href="{{ url_for('foros_micros.registrar_publicacion', id_forum=foro.id_forum) }}">{{ foro.title }}</a></li>
+            <li>{{ foro.description }}</li>
+            <hr>
+        {% endfor %}
+    </ul>
+{% endblock %}
