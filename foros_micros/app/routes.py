@@ -46,6 +46,8 @@ def register_forum():
 
 
 
+from flask import redirect, url_for
+
 @bp.route('/registrar_publicacion/<int:id_forum>', methods=['GET', 'POST'])
 def registrar_publicacion(id_forum):
     # Obtener el foro correspondiente al ID
@@ -54,7 +56,7 @@ def registrar_publicacion(id_forum):
     # Verificar si el foro existe
     if not forum:
         flash('El foro especificado no existe.', 'error')
-        return redirect(url_for('verForos'))
+        return redirect(url_for('foros_micros.verForos'))
 
     # Instanciamos el formulario de registro de publicación
     form = formPublication()
@@ -74,7 +76,11 @@ def registrar_publicacion(id_forum):
 
         flash('Publicación registrada exitosamente.', 'success')
 
+        # Redirigir al usuario a la página de ver publicaciones en el foro
+        return redirect(url_for('foros_micros.verPublicacion', idforum=id_forum))
+
     return render_template('registro_publicacion.html', form=form, id_forum=id_forum)
+
 
 
 
@@ -89,12 +95,14 @@ def verForos():
 
 
 
-@bp.route('/VerPublicacion', methods=['GET', 'POST'])
-def verPublicacion():
+@bp.route('/VerPublicacion/<int:idforum>/', methods=['GET', 'POST'])
+def verPublicacion(idforum):
     # Obtener todos los foros de la base de datos
-    publicaciones = Publication.query.all()
-    return render_template('allPublicaciones.html', publicaciones=publicaciones)
+    publicaciones = Publication.query.filter_by(forum_id=idforum).all()
+    return render_template('allPublicaciones.html', publicaciones=publicaciones, idforum = idforum )
 
+
+  
 
 
 @bp.route('/verAlumnos', methods=['GET', 'POST'])
@@ -102,6 +110,5 @@ def validar():
     # Obtenemos todos los usuarios que están en la base de datos
     users = User.query.filter_by(tipo_usuario='A', aprobado =0).all()
     return render_template('veralumnos.html', users=users)
-
 
 
