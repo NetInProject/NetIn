@@ -1,0 +1,14 @@
+{% extends "headerAdmin.html" %}
+
+{% block content %}
+    <h1>Lista de Publicaciones</h1>
+    <ul>
+        {% for publicacion in publicaciones %}
+            <h2>{{ publicacion.name }}</h2>
+            <h3>{{ publicacion.content }}</h3>
+            <hr>
+        {% endfor %}
+    </ul>
+    {% set id_publicaciones = publicaciones[0].forum_id %}
+    <li><a href="{{ url_for('foros_micros.registrar_publicacion', id_forum=id_publicaciones) }}">Agregar publicación</a></li>
+    {% endblock %}

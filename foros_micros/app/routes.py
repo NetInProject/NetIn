@@ -89,7 +89,11 @@ def verForos():
 
 
 
-
+@bp.route('/VerPublicacion', methods=['GET', 'POST'])
+def verPublicacion():
+    # Obtener todos los foros de la base de datos
+    publicaciones = Publication.query.all()
+    return render_template('allPublicaciones.html', publicaciones=publicaciones)
 
 
 
