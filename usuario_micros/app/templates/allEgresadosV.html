@@ -1,0 +1,18 @@
+{% extends "headerAdmin.html" %}
+
+{% block content %}
+<h1>Alumnos validados</h1>
+<div id="usuarios-container">
+    {% if users %}
+        {% for user in users %}
+            <div class="usuario" id="usuario-{{ user.id }}">
+                <li>{{ user.nombre }} {{ user.ap_paterno }} {{ user.ap_materno }} </li>
+                <h3>{{user.cedula_profesional}}</h3>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>NO HAY ALUMNOS REGISTRADOS.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

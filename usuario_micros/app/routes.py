@@ -10,6 +10,10 @@ import os
 from flask import redirect, url_for
 from app import login_manager
 from flask import current_app as app
+import os
+from flask import send_file
+
+
 
 bp = Blueprint('usuario_micros', __name__)
 
@@ -96,3 +100,42 @@ def perfil(auth_token):
         # Retorna response en json
         return response.json()
     return None
+
+
+@bp.route('/validarAlumnos', methods=['GET', 'POST'])
+def validar():
+    # Obtenemos todos los usuarios que están en la base de datos
+    users = User.query.filter_by(tipo_usuario='A', aprobado =0).all()
+    return render_template('validarAlumnos.html', users=users)
+
+@bp.route('/validarEgresado', methods=['GET', 'POST'])
+def validarE():
+    # Obtenemos todos los usuarios que están en la base de datos
+    users = User.query.filter_by(tipo_usuario='E', aprobado =0).all()
+    return render_template('validarEgresado.html', users=users)
+
+@bp.route('/actualizar-usuario/<int:usuario_id>', methods=['POST'])
+def actualizar_usuario(usuario_id):
+    # Obtener el usuario de la base de datos
+    usuario = User.query.get(usuario_id)
+    if usuario:
+        # Actualizar el campo "aprobado" del usuario
+        usuario.aprobado = 1
+        # Guardar los cambios en la base de datos
+        db.session.commit()
+        return jsonify({'message': 'Usuario actualizado correctamente.'}), 200
+    else:
+        return jsonify({'message': 'No se encontró el usuario.'}), 404
+
+@bp.route('/allAlumnosV', methods=['GET', 'POST'])
+def verAlumnos():
+    # Obtenemos todos los usuarios que están en la base de datos
+    users = User.query.filter_by(tipo_usuario='A', aprobado = 1).all()
+    return render_template('allAlumnosV.html', users=users)
+
+
+@bp.route('/allEgresadosV', methods=['GET', 'POST'])
+def verEgresados():
+    # Obtenemos todos los usuarios que están en la base de datos
+    users = User.query.filter_by(tipo_usuario='E', aprobado = 1).all()
+    return render_template('allEgresadosV.html', users=users)
