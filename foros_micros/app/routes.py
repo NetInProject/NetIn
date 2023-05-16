@@ -12,8 +12,10 @@ from flask import send_file
 from .models import Forum
 from app.forms import formForum, formPublication
 from .models import Publication
-
-
+from flask_wtf import FlaskForm
+from flask_wtf.file import FileField, FileAllowed
+from wtforms import StringField, TextAreaField
+from wtforms.validators import DataRequired
 
 bp = Blueprint('foros_micros', __name__)
 
@@ -47,7 +49,19 @@ def register_forum():
 
 
 from flask import redirect, url_for
+ALLOWED_EXTENSIONS = {'jpg', 'jpeg', 'png'}
 
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+class formPublication(FlaskForm):
+    name = StringField('Nombre', validators=[DataRequired()])
+    content = TextAreaField('Contenido', validators=[DataRequired()])
+    description = TextAreaField('Descripción')
+    image = FileField('Imagen', validators=[FileAllowed(['jpg', 'jpeg', 'png'])])
+
+# Ruta para registrar una publicación
 @bp.route('/registrar_publicacion/<int:id_forum>', methods=['GET', 'POST'])
 def registrar_publicacion(id_forum):
     # Obtener el foro correspondiente al ID
@@ -63,14 +77,34 @@ def registrar_publicacion(id_forum):
 
     # Verificamos si el formulario fue enviado
     if form.validate_on_submit():
+        # Obtener los datos del formulario
+        name = form.name.data
+        content = form.content.data
+        description = form.description.data
+
+        # Obtener el archivo de imagen
+        image = form.image.data
+        filename = None
+
+        if image:
+            # Verificar si se seleccionó un archivo
+            if allowed_file(image.filename):
+                # Generar un nombre seguro para el archivo
+                filename = secure_filename(image.filename)
+
+                # Guardar la imagen en el directorio de subidas
+                image.save(os.path.join(app.config['UPLOAD_FOLDER1'], filename))
+
+        # Crear una nueva publicación con los datos del formulario
         publication = Publication(
-            name=form.name.data,
-            content=form.content.data,
-            description=form.description.data,
+            name=name,
+            content=content,
+            description=description,
+            image=filename,  # Asignar el nombre de la imagen a la publicación
             forum_id=id_forum  # Asignar el ID del foro a la publicación
         )
 
-        # Guardamos la información de la publicación en la base de datos
+        # Guardar la información de la publicación en la base de datos
         db.session.add(publication)
         db.session.commit()
 
@@ -80,7 +114,6 @@ def registrar_publicacion(id_forum):
         return redirect(url_for('foros_micros.verPublicacion', idforum=id_forum))
 
     return render_template('registro_publicacion.html', form=form, id_forum=id_forum)
-
 
 
 
@@ -102,8 +135,6 @@ def verPublicacion(idforum):
     return render_template('allPublicaciones.html', publicaciones=publicaciones, idforum = idforum )
 
 
-  
-
 
 @bp.route('/verAlumnos', methods=['GET', 'POST'])
 def validar():
@@ -111,4 +142,8 @@ def validar():
     users = User.query.filter_by(tipo_usuario='A', aprobado =0).all()
     return render_template('veralumnos.html', users=users)
 
+
+@bp.route('/volverAForos', methods=['GET'])
+def volverAForos():
+    return redirect(url_for('foros_micros.verForos'))
 

@@ -1,20 +1,26 @@
 {% extends "headerAdmin.html" %}
+<link rel="stylesheet" href="{{ url_for('static', filename='./static/css/styles.css') }}">
 
 {% block content %}
     <h1>Lista de Publicaciones</h1>
+
+    <a class="btn btn-primary" href="{{ url_for('foros_micros.registrar_publicacion', id_forum=publicaciones[0].forum_id) }}">Agregar publicación</a>
+    <a class="btn btn-secondary" href="{{ url_for('foros_micros.volverAForos') }}">Volver a ver foros</a>
 
     {% if publicaciones %}
         <ul>
             {% for publicacion in publicaciones %}
                 <h2>{{ publicacion.name }}</h2>
-                <h3>{{ publicacion.content }}</h3>
+                <h4>{{ publicacion.description }}</h4>
+                <h6>{{ publicacion.content }}</h6>
+                {% if publicacion.image %}
+                    <img src="{{ url_for('static', filename='images/' + publicacion.image) }}" alt="Imagen de la publicación">
+                {% endif %}
                 <hr>
             {% endfor %}
         </ul>
-        {% set id_publicaciones = publicaciones[0].forum_id %}
-        <li><a href="{{ url_for('foros_micros.registrar_publicacion', id_forum=id_publicaciones) }}">Agregar publicación</a></li>
     {% else %}
         <p>No hay publicaciones disponibles.</p>
-        <li><a href="{{ url_for('foros_micros.registrar_publicacion', id_forum=idforum) }}">Agregar publicación</a></li>
     {% endif %}
 {% endblock %}
+e43

@@ -43,6 +43,7 @@ class Publication(db.Model):
     name = db.Column(db.String(255), nullable=False)
     content = db.Column(db.Text)
     description = db.Column(db.Text)
+    image = db.Column(db.String(128)) 
     born_date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     down_description = db.Column(db.Text)
 
