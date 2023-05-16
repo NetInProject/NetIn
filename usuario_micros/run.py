@@ -4,7 +4,7 @@ from app import create_app
 # Instanciamos la app
 app = create_app()
 # Para guardar los archivos pdf
-app.config['UPLOAD_FOLDER'] = 'app/static/pdf'
+app.config['UPLOAD_FOLDER'] = ' '
 
 # Corre la aplicación por el puerto 5000
 if __name__ == '__main__':
