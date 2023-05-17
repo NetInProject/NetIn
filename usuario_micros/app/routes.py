@@ -10,10 +10,8 @@ import os
 from flask import redirect, url_for
 from app import login_manager
 from flask import current_app as app
-import os
-from flask import send_file
-
-
+from itsdangerous import URLSafeTimedSerializer
+from flask import make_response
 
 bp = Blueprint('usuario_micros', __name__)
 
@@ -38,7 +36,8 @@ def register():
         # Guardamos el archivo PDF del estudiante si se mandó
         if form.estudiante_pdf.data:
             pdf = form.estudiante_pdf.data
-            pdf_path = os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(pdf.filename))
+            pdf_filename = secure_filename(pdf.filename)
+            pdf_path = os.path.join(app.config['UPLOAD_FOLDER'], pdf_filename)
             pdf.save(pdf_path)
         else:
             pdf_path = None
@@ -50,7 +49,7 @@ def register():
             ap_materno=form.ap_materno.data,
             email=form.email.data,
             cedula_profesional=form.cedula_profesional.data,
-            estudiante_pdf=pdf_path
+            estudiante_pdf=pdf_filename if pdf_path else None
         )
         # Hasheamos la contrasenia
         user.set_password(form.password.data)
@@ -77,9 +76,15 @@ def login():
         # Si la contrasenia coincide y verifica si está aprobado
         if user is not None and user.check_password(form.password.data) and user.aprobado:
             login_user(user)
-            return redirect(url_for('index'))
+            auth_token = generate_auth_token(user.id)  # Genera un token de autenticación
+            if user.es_admin:  # Si el usuario es admin
+                response = make_response(redirect(url_for('usuario_micros.validar_usuarios')))  # Redirige a la validación
+            else:
+                response = make_response(redirect('http://localhost:5001/'))  # Redirige al microservicio de foros
+            response.set_cookie('auth_token', auth_token)  # Establece el token de autenticación como una cookie
+            return response
 
-        flash('Algún campo es incorrecto o aún no has sido validado.', 'success')
+        flash('Algún campo es incorrecto o aún no has sido validado.', 'danger')
     return render_template('login.html', form=form)
 
 # Ruta para cerrar sesión
@@ -90,52 +95,41 @@ def logout():
     logout_user()
     return redirect(url_for('usuario_micros.login'))
 
-# Función para obtener información de un usuario a partir de su token de autenticación
-def perfil(auth_token):
-    headers = {'Authorization': f'Bearer {auth_token}'}
-    response = requests.get('http://localhost:5001/api/user', headers=headers)
+@bp.route('/validar_usuarios', methods=['GET', 'POST'])
+@login_required
+def validar_usuarios():
+    # Verificar si el usuario actual es administrador
+    if not current_user.es_admin:
+        flash('No tienes permiso para acceder a esta página.', 'danger')
+        return redirect(url_for('usuario_micros.login'))
 
-    # Verifica si la respuesta es exitosa
-    if response.status_code == 200:
-        # Retorna response en json
-        return response.json()
-    return None
+    # Obtener la lista de usuarios no validados
+    usuarios_no_validados = User.query.filter_by(aprobado=False).all()
 
+    return render_template('validar_usuarios.html', usuarios=usuarios_no_validados)
 
-@bp.route('/validarAlumnos', methods=['GET', 'POST'])
-def validar():
-    # Obtenemos todos los usuarios que están en la base de datos
-    users = User.query.filter_by(tipo_usuario='A', aprobado =0).all()
-    return render_template('validarAlumnos.html', users=users)
+@bp.route('/validar_usuario/<int:usuario_id>', methods=['GET', 'POST'])
+@login_required
+def validar_usuario(usuario_id):
+    # Verificar si el usuario actual es administrador
+    if not current_user.es_admin:
+        flash('No tienes permiso para acceder a esta página.', 'danger')
+        return redirect(url_for('usuario_micros.login'))
 
-@bp.route('/validarEgresado', methods=['GET', 'POST'])
-def validarE():
-    # Obtenemos todos los usuarios que están en la base de datos
-    users = User.query.filter_by(tipo_usuario='E', aprobado =0).all()
-    return render_template('validarEgresado.html', users=users)
-
-@bp.route('/actualizar-usuario/<int:usuario_id>', methods=['POST'])
-def actualizar_usuario(usuario_id):
-    # Obtener el usuario de la base de datos
+    # Encontrar al usuario por id
     usuario = User.query.get(usuario_id)
     if usuario:
-        # Actualizar el campo "aprobado" del usuario
-        usuario.aprobado = 1
-        # Guardar los cambios en la base de datos
+        # Validar al usuario y guardar en la base de datos
+        usuario.aprobado = True
         db.session.commit()
-        return jsonify({'message': 'Usuario actualizado correctamente.'}), 200
+
+        flash('El usuario ha sido validado.', 'success')
     else:
-        return jsonify({'message': 'No se encontró el usuario.'}), 404
+        flash('Usuario no encontrado.', 'danger')
 
-@bp.route('/allAlumnosV', methods=['GET', 'POST'])
-def verAlumnos():
-    # Obtenemos todos los usuarios que están en la base de datos
-    users = User.query.filter_by(tipo_usuario='A', aprobado = 1).all()
-    return render_template('allAlumnosV.html', users=users)
+    return redirect(url_for('usuario_micros.validar_usuarios'))
 
-
-@bp.route('/allEgresadosV', methods=['GET', 'POST'])
-def verEgresados():
-    # Obtenemos todos los usuarios que están en la base de datos
-    users = User.query.filter_by(tipo_usuario='E', aprobado = 1).all()
-    return render_template('allEgresadosV.html', users=users)
+# Genera un token de autenticación después de que el usuario inicia sesión
+def generate_auth_token(user_id, expiration=600):
+    s = URLSafeTimedSerializer(app.config['SECRET_KEY'])
+    return s.dumps(user_id)

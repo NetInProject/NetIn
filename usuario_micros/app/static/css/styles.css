@@ -1,0 +1,118 @@
+body{
+    background-image: url('/static/img/fondo.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+  
+  h1{
+    color: #f6f6f6;
+    text-align: center;
+  }
+  
+  .navbar-brand img {
+    height: 50px;
+    margin-right: 10px;
+  }
+  
+  .navbar-brand {
+    font-size: 2rem;
+  }
+  
+  .navbar-nav .nav-link {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  #navbar {
+    background-color: #f6f6f6;
+  }
+  
+  /* Colores definidos */
+  :root {
+    --color-1: #523c8c;
+    --color-2: #bca4dc;
+    --color-3: #432c7d;
+    --color-4: #68549c;
+    --color-5: #aa9ecc;
+    --color-6: #c3b5d7;
+  }
+  
+  /* Estilos para el formulario */
+  form {
+    background-color: rgba(82, 60, 140, 0.35);
+    color: rgb(0, 0, 0);
+    padding: 20px;
+    width: 490px;
+    margin: 0 auto;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  form h1 {
+    color: var(--color-2);
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  form label {
+    color: white;
+    text-shadow: 1px 1px black;
+    width: 100%;
+    display: block;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  form input[type="text"],
+  form input[type="email"],
+  form input[type="password"] {
+    background-color: var(--color-6);
+    color: rgb(253, 253, 253);
+    border-radius: 25px;
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+    margin: 0 auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  form select[name="tipo_usuario"] {
+    background-color: var(--color-2);
+    color: rgb(253, 253, 253);
+    border-radius: 25px;
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+    margin: 0 auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  }  
+  
+  form input[type="text"]:focus,
+  form input[type="email"]:focus,
+  form input[type="password"]:focus {
+    outline: none;
+    box-shadow: none;
+    border: none;
+  }
+  
+  form button[type="submit"] {
+    background-color: var(--color-4);
+    border: none;
+    border-radius: 15px;
+    padding: 10px 50px;
+    color: rgb(255, 255, 255);
+    margin-top: 30px;
+    display: block;
+    margin: 0 auto;
+    margin-top: 20px;
+  }
+  
+  form button[type="submit"]:hover {
+    background-color: var(--color-5);
+  }
