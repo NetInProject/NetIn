@@ -7,6 +7,3 @@ __pycache__
 # DS_Store
 .DS_Store
 
-#Config y run
-config.py
-run.py
