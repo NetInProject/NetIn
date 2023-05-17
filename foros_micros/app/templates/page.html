@@ -31,17 +31,14 @@
                             <h2>{{ publicacion.name }}</h2>
                             <h4>{{ publicacion.description }}</h4>
                             <h6>{{ publicacion.content }}</h6>
-                            <a>{{publicacion.forum_id}}
                             {% if publicacion.image %}
                                 <img src="{{ url_for('static', filename='images/' + publicacion.image) }}" alt="Imagen de la publicación">
                             {% endif %}
                             <hr>
                         {% endfor %}
-                        <a class="btn btn-primary" href="{{ url_for('foros_micros.registrar_publicacion', id_forum=publicaciones[0].forum_id) }}">Agregar publicación</a>
                     </ul>
                 {% else %}
                     <p>No hay publicaciones disponibles.</p>
-                    <a class="btn btn-primary" href="{{ url_for('foros_micros.registrar_publicacion', id_forum=idforum) }}">Agregar publicación</a>
                 {% endif %}
             </div>
         </div>

@@ -16,7 +16,9 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(128))
     estudiante_pdf = db.Column(db.String(255), nullable=True)
     cedula_profesional = db.Column(db.String(8), nullable=True)
+    es_admin = db.Column(db.Boolean, default=False)
     aprobado = db.Column(db.Boolean, default=False)
+    
 
     # Establece la contraseña del usuario hasheando la contraseña
     def set_password(self, password):
