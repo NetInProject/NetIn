@@ -22,7 +22,7 @@ bp = Blueprint('foros_micros', __name__)
 # Ruta por si van al raiz
 @bp.route('/')
 def index():
-    return "Comunicar servicio"
+    return 'ESTO ES PURA MIERDA'
 
 # Ruta para registrar un foro
 
@@ -55,11 +55,6 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-class formPublication(FlaskForm):
-    name = StringField('Nombre', validators=[DataRequired()])
-    content = TextAreaField('Contenido', validators=[DataRequired()])
-    description = TextAreaField('Descripción')
-    image = FileField('Imagen', validators=[FileAllowed(['jpg', 'jpeg', 'png'])])
 
 # Ruta para registrar una publicación
 @bp.route('/registrar_publicacion/<int:id_forum>', methods=['GET', 'POST'])
@@ -96,11 +91,12 @@ def registrar_publicacion(id_forum):
                 image.save(os.path.join(app.config['UPLOAD_FOLDER1'], filename))
 
         # Crear una nueva publicación con los datos del formulario
+        
         publication = Publication(
             name=name,
             content=content,
             description=description,
-            image=filename,  # Asignar el nombre de la imagen a la publicación
+            image= filename,  # Asignar el nombre de la imagen a la publicación
             forum_id=id_forum  # Asignar el ID del foro a la publicación
         )
 
@@ -130,9 +126,11 @@ def verForos():
 
 @bp.route('/VerPublicacion/<int:idforum>/', methods=['GET', 'POST'])
 def verPublicacion(idforum):
+    form = formPublication()
     # Obtener todos los foros de la base de datos
     publicaciones = Publication.query.filter_by(forum_id=idforum).all()
-    return render_template('allPublicaciones.html', publicaciones=publicaciones, idforum = idforum )
+    return render_template('page.html', publicaciones=publicaciones, idforum = idforum, form=form )
+
 
 
 

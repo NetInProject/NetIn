@@ -1,0 +1,27 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    height: 100px;
+    background-color: #ccc;
+    /* Estilos adicionales para el header */
+}
+
+.content-wrapper {
+    display: flex;
+    height: calc(100vh - 100px); /* Resta la altura del header para ajustar al alto de la ventana */
+}
+
+.left-section {
+    width: 30%;
+    background-color: #f0f0f0;
+    /* Estilos adicionales para la sección izquierda */
+}
+
+.right-section {
+    flex-grow: 1;
+    background-color: #fff;
+    /* Estilos adicionales para la sección derecha */
+}

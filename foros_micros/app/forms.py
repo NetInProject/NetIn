@@ -18,4 +18,8 @@ class formPublication(FlaskForm):
     name = StringField('Nombre de la publicación', validators=[DataRequired()])
     content = StringField('Contenido', validators=[DataRequired()])
     description = StringField('Descripción', validators=[DataRequired()])
+    image = FileField('Imagen', validators=[FileAllowed(['jpg', 'jpeg', 'png'])])
     submit = SubmitField('Publicar')
+    
+    
+    

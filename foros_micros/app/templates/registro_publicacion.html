@@ -1,33 +1,28 @@
-{% extends "headerAdmin.html" %}
+<hr>
+<h4>Nueva publicación</h4>
+<form method="POST" action="{{ url_for('foros_micros.registrar_publicacion', id_forum=idforum) }}" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
 
-{% block content %}
-    <h1>Registrar Publicación</h1>
-    <hr>
+    <div class="form-group">
+        {{ form.name.label(class="form-label") }}
+        {{ form.name(class="form-control") }}
+    </div>
 
-    <form method="POST" action="{{ url_for('foros_micros.registrar_publicacion', id_forum=id_forum) }}" enctype="multipart/form-data">
-        {{ form.hidden_tag() }}
+    <div class="form-group">
+        {{ form.content.label(class="form-label") }}
+        {{ form.content(class="form-control") }}
+    </div>
 
-        <div class="form-group">
-            {{ form.name.label(class="form-label") }}
-            {{ form.name(class="form-control") }}
-        </div>
+    <div class="form-group">
+        {{ form.description.label(class="form-label") }}
+        {{ form.description(class="form-control") }}
+    </div>
 
-        <div class="form-group">
-            {{ form.content.label(class="form-label") }}
-            {{ form.content(class="form-control") }}
-        </div>
+    <div class="form-group", "imagen">
+        {{ form.image.label(class="form-label") }}
+        {{ form.image(class="form-control") }}
+    </div>
 
-        <div class="form-group">
-            {{ form.description.label(class="form-label") }}
-            {{ form.description(class="form-control") }}
-        </div>
-
-        <div class="form-group">
-            {{ form.image.label(class="form-label") }}
-            {{ form.image(class="form-control") }}
-        </div>
-
-        <button type="submit" class="btn btn-primary">Registrar</button>
-        <a href="{{ url_for('foros_micros.verPublicacion', idforum=id_forum) }}" class="btn btn-secondary">Cancelar</a>
-    </form>
-{% endblock %}
+    <button type="submit" class="btn btn-primary">Registrar</button>
+</form>
+<hr>
