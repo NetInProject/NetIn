@@ -2,7 +2,7 @@
 
 {% block content %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-
+    
     <div class="content-wrapper">
         <div class="left-section">
             {% block usuario %}
@@ -10,10 +10,14 @@
 
             <!-- Contenido de la sección izquierda -->
             <img src="" alt="">
-            <h2>Nombre</h2>
-            <h2>Rol</h2>
+            <h2>{{ user.nombre.capitalize() }} {{ user.ap_materno.capitalize() }}</h2>
+            {% if user.tipo_usuario == 'E' %}
+                <h2>Egresado</h2>
+            {% else %}
+                <h2>Alumno</h2>
+            {% endif %}
             <button>Mi cuenta</button>
-            <button>Cerrar sesión</button>
+            <a class="button" href="http://localhost:5000/logout">Salir</a>
         </div>  
 
         <div class="right-section">
@@ -28,6 +32,7 @@
                 {% if publicaciones %}
                     <ul>
                         {% for publicacion in publicaciones %}
+                        <h6>Autor: {{ publicacion.user.nombre }} {{ publicacion.user.ap_paterno }} {{ publicacion.user.ap_materno }}</h6>
                             <h2>{{ publicacion.name }}</h2>
                             <h4>{{ publicacion.description }}</h4>
                             <h6>{{ publicacion.content }}</h6>
