@@ -1,27 +1,196 @@
+/* styles.css */
+
+/* Estilos generales */
 body {
+    background-image: url('/static/imgs/fondoForos.jpg');
+    background-repeat: no-repeat;
+    background-size: 150%;
+    background-position: center;
+    font-family: 'Montserrat', Arial, sans-serif;
     margin: 0;
     padding: 0;
 }
 
-header {
-    height: 100px;
-    background-color: #ccc;
-    /* Estilos adicionales para el header */
-}
-
+/* Colores definidos */
+:root {
+    --color-1: #523c8c;
+    --color-2: #bca4dc;
+    --color-3: #432c7d;
+    --color-4: #68549c;
+    --color-5: #aa9ecc;
+    --color-6: #c3b5d7;
+  }
 .content-wrapper {
     display: flex;
-    height: calc(100vh - 100px); /* Resta la altura del header para ajustar al alto de la ventana */
+    justify-content: space-between;
+    margin: 20px;
 }
 
 .left-section {
-    width: 30%;
-    background-color: #f0f0f0;
-    /* Estilos adicionales para la sección izquierda */
+    width: 300px;
 }
 
 .right-section {
     flex-grow: 1;
-    background-color: #fff;
-    /* Estilos adicionales para la sección derecha */
+    margin-left: 20px;
 }
+
+/* Estilos del formulario de publicación */
+.formulariopublicacion {
+    margin-bottom: 20px;
+    background-color:#ebe8f1; 
+    border-radius: 10px; /* Ajusta el valor para hacer los bordes más o menos redondeados */
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos de los campos de entrada */
+.formulariopublicacion input[type="text"],
+.formulariopublicacion textarea {
+    width: 100%;
+    padding: 10px;
+    background-color:#d8d3e7; 
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+/* Estilos de las publicaciones */
+.publicaciones {
+    list-style: none;
+    padding: 0;
+}
+
+.publicaciones h2 {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.publicaciones h4 {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.publicaciones h6 {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 10px;
+}
+
+.publicaciones img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.publicaciones hr {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 10px 0;
+}
+
+/* Estilos del botón */
+button {
+    padding: 10px 20px;
+    background-color:#c3b5d7;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+button:hover {
+    background-color:#c3b5d7;
+}
+
+/* Estilos de las imágenes */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Estilos adicionales para la sección izquierda */
+
+.left-section {
+    width: 30%;
+    background-image: url('/static/imgs/fondoAizq.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    
+}
+
+.left-section button {
+    width: 80%;
+    padding: 10px 20px;
+    background-color: var(--color-3);
+    color: #fff;
+    border: 3px solid #c6bdd2;
+    border-radius: 50px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra */
+}
+
+.left-section button:hover {
+    background-color: var(--color-3);
+    border-color: var(--color-4);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Sombra en el hover */
+}
+
+.right-section {
+    flex-grow: 1;
+    background-color: #ffffff; /* Color de fondo deseado */
+    /* Estilos adicionales para la sección derecha */
+    border: 0.5px solid;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    margin-left: 50px; 
+    
+  
+}
+
+.right-section button {
+    width: 35%;
+    padding: 8px 20px;
+    background-color: var(--color-3);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    margin-left: 380px; 
+    margin-top: 20px;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2), 0 0 10px rgba(211,207,229,255);
+}
+
+.right-section button:hover {
+    background-color: var(--color-3);
+    box-shadow: 0 8px 10px rgba(0, 0, 0, 0.3), 0 0 10px rgba(0, 0, 0, 0.2) inset; /* Sombra con relieve más pronunciado en el hover */
+}
+
+/* Estilos de las imágenes */
+
+img {
+    width: 300px; /* Establece el ancho deseado */
+    height: 200px; /* Establece la altura deseada */
+    object-fit: cover; /* Ajusta la imagen al tamaño especificado */
+    margin-bottom: 10px;
+}
+
+
+
+
+
+
+
+

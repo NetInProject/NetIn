@@ -1,5 +1,6 @@
 <hr>
 <h4>Nueva publicación</h4>
+
 <form method="POST" action="{{ url_for('foros_micros.registrar_publicacion', id_forum=idforum) }}" enctype="multipart/form-data">
     {{ form.hidden_tag() }}
 

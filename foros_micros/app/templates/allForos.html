@@ -1,6 +1,7 @@
 {% extends "headerAdmin.html" %}
 
 {% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styleForo.css') }}">
     <h1>Lista de Foros</h1>
 
     <a class="btn btn-primary" href="{{ url_for('foros_micros.register_forum') }}">Agregar foro</a>
