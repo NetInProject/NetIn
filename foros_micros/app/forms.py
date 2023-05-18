@@ -13,13 +13,14 @@ class formForum(FlaskForm):
     description = StringField('Descripción', validators=[DataRequired()])
     submit = SubmitField('Registrar foro')
 
+
 # Formulario creacion de publicacion
 class formPublication(FlaskForm):
     name = StringField('Nombre de la publicación', validators=[DataRequired()])
     content = StringField('Contenido', validators=[DataRequired()])
     description = StringField('Descripción', validators=[DataRequired()])
-    image = FileField('Imagen', validators=[FileAllowed(['jpg', 'jpeg', 'png'])])
+    image = FileField('Imagen', validators=[FileAllowed(['jpg', 'jpeg', 'png'], 'Solo se permiten imágenes en formato JPG, JPEG o PNG')], render_kw={'accept': 'image/jpeg, image/png'})
     submit = SubmitField('Publicar')
-    
+   
     
     
