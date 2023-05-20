@@ -100,6 +100,23 @@ button {
     margin-bottom: 10px;
 }
 
+.boton{
+    background-color:#c3b5d7;
+    padding: 5px 10px;
+    color: #fff;
+    margin-top: 1rem;
+    font-size: 2rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: bold;
+    width: 50%;
+    text-align: center;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 10px
+}
+
 button:hover {
     background-color:#c3b5d7;
 }
