@@ -72,7 +72,7 @@ class formRegistro(FlaskForm):
     password = PasswordField('Contraseña', validators=[DataRequired(), validar_contrasenia])
     password2 = PasswordField('Repita la contraseña', validators=[DataRequired(), EqualTo('password')])
     cedula_profesional = StringField('Cédula profesional', validators=[Optional(), validar_cedula])
-    estudiante_pdf = FileField('Subir archivo PDF', validators=[Optional(), FileAllowed(['pdf'], 'Solo se permiten archivos PDF'), validar_pdf])
+    estudiante_pdf = FileField('Subir archivo PDF', validators=[Optional(), FileAllowed(['pdf'], 'Solo se permiten archivos PDF'), validar_pdf], render_kw={'accept': 'application/pdf'})
     submit = SubmitField('Registrarse')
 
 # Formulario de login
